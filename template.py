@@ -1,24 +1,54 @@
-##Python demp.py 
-##Import pandas as pd
-##Data =pd.read_csv(‘trees.csv’)
-##Print(data.head())
+import os
+from pathlib import Path
+import logging
 
-##Click Your Repositories-Click NEW  -Give  Repositories name -select-public-tick README.md and .ignore file select python and LICENCE-MITLICENCE 
-##	$ git clone https://github.com/satyakommana75/End-to-End-ML-Project.git IN VS-CODE
-##	$ touch template.py
-##	
-## ls -a	$ git add .
-##	$ git commit -m "This is My First Commit"
-##	git push -u origin main(    
-##	 git config --global user.name "satyakommana75"
-##	git config --global user.email "satyakommana75@gmail.com" 
+logging.basicConfig(level=logging.INFO, format='[%(asctime)s]: %(message)s:')
 
 
-##	git push origin main 
-## without setting up any tracking information. It will push the changes to the remote branch but won't establish a link between the local and remote branches.
+project_name = "mlProject"
 
 
- ## git push -u origin main      
-## The -u option (short for --set-upstream) is used to establish a tracking relationship between the local and remote branches. When you use this option, Git sets the upstream branch for the current branch. It means that in the future, when you run git pull or git push without specifying a branch, Git will automatically use the upstream branch.
-## git push -f origin main:
-## The -f option (short for --force) is used to force-push the local branch to the remote repository. This means that it overwrites the remote branch with the local branch, discarding any changes on the remote branch that are not present in the local branch.
+
+list_of_files = [
+    f"src/{project_name}/__init__.py",
+    f"src/{project_name}/components/__init__.py",
+    f"src/{project_name}/utils/__init__.py",
+    f"src/{project_name}/utils/common.py",
+    f"src/{project_name}/config/__init__.py",
+    f"src/{project_name}/config/configuration.py",
+    f"src/{project_name}/pipeline/__init__.py",
+    f"src/{project_name}/entity/__init__.py",
+    f"src/{project_name}/entity/config_entity.py",
+    f"src/{project_name}/constants/__init__.py",
+    "config/config.yaml",
+    "params.yaml",
+    "schema.yaml",
+    "main.py",
+    "app.py",
+    "requirements.txt",
+    "setup.py",
+    "research/trials.ipynb",
+    "templates/index.html"
+
+
+]
+
+
+
+for filepath in list_of_files:
+    filepath = Path(filepath)
+
+    filedir, filename = os.path.split(filepath)
+
+    if filedir !="":
+        os.makedirs(filedir, exist_ok=True)
+        logging.info(f"Creating directory; {filedir} for the file: {filename}")
+
+    if (not os.path.exists(filepath)) or (os.path.getsize(filepath) == 0):
+        with open(filepath, "w") as f:
+            pass
+            logging.info(f"Creating empty file: {filepath}")
+
+
+    else:
+        logging.info(f"{filename} is already exists")
